@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery DOM Demo</title>
+  <style>
+    body { font: 1rem/1.6 system-ui, sans-serif; max-width: 42rem; margin: 3rem auto; padding: 0 1rem; }
+    #myDIV { margin: 1rem 0; }
+    #myDIV p { margin: 0; }
+    .myStyle { background-color: coral; padding: 16px; }
+    button { font: inherit; padding: 0.3rem 0.8rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>jQuery DOM Demo</h1>
+    <div id="myElement">Original Text</div>
+    <div id="myDIV"><p>I am a myDIV.</p></div>
+    <button type="button" id="myButton">Click me</button>
+  </main>
+  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+  <script>
+    $("#myElement").text("Modified Text");
+    $("#myDIV").addClass("myStyle");
+    $("#myButton").on("click", () => alert("Button clicked!"));
+  </script>
+</body>
+</html>

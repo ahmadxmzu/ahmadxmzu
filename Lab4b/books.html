@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Books from JSON</title>
+  <style>
+    body { font: 1rem/1.6 system-ui, sans-serif; max-width: 42rem; margin: 3rem auto; padding: 0 1rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Books from JSON</h1>
+    <p id="status" role="status">Loading books…</p>
+    <section id="results" hidden aria-label="Book details">
+      <p>First book title: <strong id="first-title"></strong></p>
+      <p>Second book author: <strong id="second-author"></strong></p>
+      <h2>Genres by book</h2>
+      <ul id="genres"></ul>
+    </section>
+  </main>
+  <script>
+    async function loadBooks() {
+      const status = document.getElementById("status");
+
+      try {
+        const response = await fetch("./books.json");
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const { books } = await response.json();
+        document.getElementById("first-title").textContent = books[0].title;
+        document.getElementById("second-author").textContent = books[1].author;
+
+        const genres = document.getElementById("genres");
+        for (const book of books) {
+          const item = document.createElement("li");
+          item.textContent = `${book.title} — ${book.genres.join(", ")}`;
+          genres.append(item);
+        }
+
+        document.getElementById("results").hidden = false;
+        status.textContent = "";
+      } catch {
+        status.textContent = "Could not load the books. Check that books.json is available and contains valid JSON, then reload.";
+      }
+    }
+
+    loadBooks();
+  </script>
+</body>
+</html>
